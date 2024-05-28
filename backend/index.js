@@ -5,11 +5,8 @@ import booksRoute from './routes/booksRoute.js';
 import cors from "cors";
 const app=express();
 
-app.use(cors({
-    origin:"https://localhost:3000",
-    methods:['GET','POST','PUT','DELETE'],
-    allowedHeaders:['content-Type'],
-}));
+app.use(cors());
+
 app.use(express.json());
 app.get('/', (req, res) => {
     console.log(req);
