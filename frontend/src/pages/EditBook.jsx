@@ -3,9 +3,11 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const EditBook = () => {
   const [loading, setLoading] = useState(false);
+  const {enqueueSnackbar}=useSnackbar();
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -31,10 +33,12 @@ const EditBook = () => {
           author: response.data.author,
           publishYear: response.data.publishYear
         });
+        enqueueSnackbar("Book edited successfully",{variant:"success"});
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        enqueueSnackbar("Error",{variant:"error"});
         setLoading(false);
       });
   }, []);

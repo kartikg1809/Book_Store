@@ -3,9 +3,11 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import BackButton from '../components/BackButton';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const CreateBooks = () => {
   const [loading, setLoading] = useState(false);
+  const {enqueueSnackbar}=useSnackbar();
   const [formData, setFormData] = useState({
     title: '',
     author: '',
@@ -31,10 +33,12 @@ const CreateBooks = () => {
     axios.post('http://localhost:5555/books', data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar("Book added successfully",{variant:"success"});
         navigate('/');
       })
       .catch((error) => {
         setLoading(false);
+        enqueueSnackbar("Error",{variant:"error"});
         console.log(error);
       });
   };
